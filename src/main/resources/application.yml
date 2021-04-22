@@ -1,0 +1,32 @@
+keycloak:
+  auth-server-url: http://172.16.2.129:8080/auth
+  realm: aquicard-backoffice
+  resource: aquicard-backoffice
+  public-client: true
+  principal-attribute: preferred_username
+
+#LOGGING CONFIGURATIONS
+debug: true
+logging:
+  file:
+    name: web.log
+    path:
+  level:
+    org:
+      keycloak.*: trace
+      apache.http.*: info
+      springframework.transaction.interceptor: TRACE
+    br:
+      com:
+        aquicard:
+          gateway: debug
+  pattern:
+    console: '%clr(%d{${LOG_DATEFORMAT_PATTERN:-dd-MM-yyyy HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(%X{UUID_GATEWAY}){yellow} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}:%L){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}'
+    file: '%clr(%d{${LOG_DATEFORMAT_PATTERN:-dd-MM-yyyy HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(%X{UUID_GATEWAY}){yellow} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}:%L){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}'
+  logback:
+    rollingpolicy:
+      max-file-size: 200MB
+      max-history: 30
+
+
+
