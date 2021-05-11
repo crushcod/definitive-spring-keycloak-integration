@@ -1,9 +1,79 @@
 keycloak:
   auth-server-url: http://172.16.2.129:8080/auth
-  realm: web-backoffice
-  resource: web-backoffice
-  public-client: true
+  realm: backoffice-coc
+  resource: backoffice-client
+  public-client: false
+  policy-enforcer-config:
+    lazy-load-paths: true
+    enforcement-mode: ENFORCING
+    paths:
+      -
+        path: /
+        enforcement-mode: DISABLED
+        methods:
+          -
+            method: GET
+            scopes: public
+      -
+        path: /index.html
+        enforcement-mode: DISABLED
+        methods:
+          -
+            method: GET
+            scopes: public
+      -
+        path: /assets/*
+        enforcement-mode: DISABLED
+        methods:
+          -
+            method: GET
+            scopes: public
+      -
+        path: /js/*
+        enforcement-mode: DISABLED
+        methods:
+          -
+            method: GET
+            scopes: public
+
+      -
+        path: /sso/login
+        enforcement-mode: DISABLED
+        methods:
+          -
+            method: GET
+            scopes: public
+      -
+        path: /private/dashboard
+        enforcement-mode: ENFORCING
+        name: private:dashboard
+        scopes:
+          - action:view
+          - action:edit
+          - action:insert
+          - action:delete
+        methods:
+          -
+            method: GET
+            scopes:
+              - action:view
+
+
   principal-attribute: preferred_username
+  credentials:
+    secret: 655b0871-a243-477c-9f20-b49b275a9cec
+
+  securityConstraints:
+    - authRoles:
+        - ADMIN
+        - VIEWER
+        - SUPER_USER
+      securityCollections:
+        - name: Private
+          patterns:
+            - /private/*
+
+
 
 #LOGGING CONFIGURATIONS
 debug: true

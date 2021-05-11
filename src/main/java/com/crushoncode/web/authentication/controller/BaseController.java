@@ -9,9 +9,5 @@ import javax.servlet.http.HttpServletRequest;
 public class BaseController {
 
 
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request) throws Exception {
-        request.logout();
-        return "redirect:/";
-    }
+
 }
